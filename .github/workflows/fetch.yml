@@ -1,0 +1,38 @@
+name: Daily Fetch & Rewrite
+
+on:
+  schedule:
+    - cron: '0 0 * * *'   # 08:00 CST
+    - cron: '0 4 * * *'   # 12:00 CST
+    - cron: '0 10 * * *'  # 18:00 CST
+  workflow_dispatch:
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - run: pip install -r scripts/requirements.txt
+
+      - name: Fetch articles
+        run: python scripts/scheduler.py --fetch-only
+
+      - name: Rewrite with LLM
+        env:
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          LLM_API_URL: ${{ secrets.LLM_API_URL }}
+        run: python scripts/scheduler.py --rewrite-only
+
+      - name: Commit changes
+        run: |
+          git config user.name "ViaFinance Bot"
+          git config user.email "bot@finance.vias.cn"
+          git add content/ config/ -A
+          git diff --staged --quiet || git commit -m "chore: auto-fetch and rewrite articles [skip ci]"
+          git push

@@ -1,0 +1,9 @@
+[
+  {
+    "id": "website",
+    "name": "finance.vias.cn",
+    "type": "website",
+    "enabled": true,
+    "config": {}
+  }
+]
