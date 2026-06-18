@@ -1,8 +1,28 @@
 import { NextResponse } from "next/server"
-import fs from "fs"
-import path from "path"
+import { readFile } from "@/lib/github"
 
-const contentDir = path.join(process.cwd(), "content", "articles")
+async function listDir(path: string): Promise<string[]> {
+  try {
+    const res = await fetch(
+      `https://api.github.com/repos/davidvisa/finance.vias.cn/contents/${path}?ref=main`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+          Accept: "application/vnd.github.v3+json",
+          "User-Agent": "ViaFinance",
+        },
+      }
+    )
+    if (!res.ok) return []
+    const data = await res.json()
+    if (!Array.isArray(data)) return []
+    return data
+      .filter((item: any) => item.name.endsWith(".md") && item.type === "file")
+      .map((item: any) => item.name)
+  } catch {
+    return []
+  }
+}
 
 function parseFrontmatter(raw: string) {
   const match = raw.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/)
@@ -18,14 +38,15 @@ function parseFrontmatter(raw: string) {
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
   const category = searchParams.get("category") || ""
-  const dir = path.join(contentDir, "draft")
-  if (!fs.existsSync(dir)) return NextResponse.json([])
 
-  const files = fs.readdirSync(dir).filter(f => f.endsWith(".md"))
-  const articles = files.map(file => {
-    const raw = fs.readFileSync(path.join(dir, file), "utf-8")
+  const files = await listDir("content/articles/draft")
+  const articles = []
+
+  for (const file of files) {
+    const raw = await readFile(`content/articles/draft/${file}`)
+    if (!raw) continue
     const { meta } = parseFrontmatter(raw)
-    return {
+    articles.push({
       slug: file.replace(/\.md$/, ""),
       title: meta.title || file,
       date: meta.date || "",
@@ -33,8 +54,8 @@ export async function GET(request: Request) {
       tags: meta.tags || "",
       source: meta.source || "",
       category: meta.tags || meta.category || "",
-    }
-  })
+    })
+  }
   articles.sort((a, b) => (a.date > b.date ? -1 : 1))
 
   const filtered = category ? articles.filter(a => a.tags === category || a.category === category) : articles
