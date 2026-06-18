@@ -96,6 +96,7 @@ def rewrite_with_llm(title, summary, category):
 ## 正文
 （改写后的正文）"""
 
+    model = os.getenv("LLM_MODEL", "deepseek-chat")
     try:
         resp = requests.post(
             api_url,
@@ -104,7 +105,7 @@ def rewrite_with_llm(title, summary, category):
                 "Content-Type": "application/json",
             },
             json={
-                "model": "gpt-4o-mini",
+                "model": model,
                 "messages": [{"role": "user", "content": prompt}],
                 "temperature": 0.7,
                 "max_tokens": 1500,
