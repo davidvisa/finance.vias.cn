@@ -47,6 +47,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { href: "/admin/sources", label: "数据源管理", icon: "📡" },
     { href: "/admin/channels", label: "发布渠道", icon: "📤" },
     { href: "/admin/logs", label: "采集日志", icon: "📋" },
+    { href: "/admin/settings", label: "平台配置", icon: "⚙️" },
   ]
 
   return (

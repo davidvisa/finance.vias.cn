@@ -86,8 +86,38 @@ export async function PUT(request: Request) {
           `chore: remove article '${slug}' from ${s} [skip ci]`
         )
       }
-      return NextResponse.json({ ok: true })
+
+      let publishResult: any = null
+      if (status === "published") {
+        publishResult = await autoPublish(slug, newMeta, content)
+      }
+
+      return NextResponse.json({ ok: true, publish: publishResult })
     }
   }
   return NextResponse.json({ ok: false }, { status: 404 })
+}
+
+async function autoPublish(slug: string, meta: Record<string, string>, content: string) {
+  try {
+    const settingsRaw = await readFile("config/platforms.json")
+    if (!settingsRaw) return { skipped: true, reason: "未配置平台密钥" }
+    const settings = JSON.parse(settingsRaw)
+
+    const results: Record<string, any> = {}
+
+    if (settings.wechat?.appid && settings.wechat?.appsecret) {
+      const { publishToWeChat } = await import("@/lib/publishers/wechat")
+      const result = await publishToWeChat(settings.wechat, {
+        title: meta.title || slug,
+        content,
+        summary: meta.summary,
+      })
+      results.wechat = result
+    }
+
+    return results
+  } catch (e: any) {
+    return { error: e.message }
+  }
 }
