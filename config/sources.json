@@ -1,1 +1,92 @@
-[]
+[
+  {
+    "id": "reuters",
+    "name": "Reuters - 路透社",
+    "url": "https://www.reuters.com/business/",
+    "category": "news",
+    "selector": "article[data-testid='story']",
+    "frequency": "daily",
+    "enabled": true
+  },
+  {
+    "id": "bloomberg",
+    "name": "Bloomberg - 彭博",
+    "url": "https://www.bloomberg.com/markets",
+    "category": "us_stock",
+    "selector": "article",
+    "frequency": "daily",
+    "enabled": true
+  },
+  {
+    "id": "cnbc",
+    "name": "CNBC - 财经新闻",
+    "url": "https://www.cnbc.com/markets/",
+    "category": "us_stock",
+    "selector": "div.Card-cardContainer",
+    "frequency": "daily",
+    "enabled": true
+  },
+  {
+    "id": "ft",
+    "name": "Financial Times - 金融时报",
+    "url": "https://www.ft.com/markets",
+    "category": "news",
+    "selector": "div.o-teaser",
+    "frequency": "daily",
+    "enabled": true
+  },
+  {
+    "id": "wsj",
+    "name": "Wall Street Journal - 华尔街日报",
+    "url": "https://www.wsj.com/news/markets",
+    "category": "us_stock",
+    "selector": "article.WSJTheme--story",
+    "frequency": "daily",
+    "enabled": true
+  },
+  {
+    "id": "investopedia",
+    "name": "Investopedia - 财经教育",
+    "url": "https://www.investopedia.com/markets-4427800",
+    "category": "news",
+    "selector": "div.card__content",
+    "frequency": "daily",
+    "enabled": true
+  },
+  {
+    "id": "marketwatch",
+    "name": "MarketWatch - 市场观察",
+    "url": "https://www.marketwatch.com/markets",
+    "category": "us_stock",
+    "selector": "div.article__content",
+    "frequency": "daily",
+    "enabled": true
+  },
+  {
+    "id": "yahoo_finance",
+    "name": "Yahoo Finance - 雅虎财经",
+    "url": "https://finance.yahoo.com/markets/",
+    "category": "us_stock",
+    "selector": "li.js-stream-content",
+    "frequency": "daily",
+    "enabled": true
+  },
+  {
+    "id": "economist",
+    "name": "The Economist - 经济学人",
+    "url": "https://www.economist.com/finance-and-economics/",
+    "category": "macro",
+    "selector": "article",
+    "frequency": "daily",
+    "enabled": true
+  },
+  {
+    "id": "tradingeconomics",
+    "name": "TradingEconomics - 宏观经济数据",
+    "url": "https://tradingeconomics.com/",
+    "category": "macro",
+    "selector": "table#countryData",
+    "frequency": "daily",
+    "enabled": true
+  }
+]

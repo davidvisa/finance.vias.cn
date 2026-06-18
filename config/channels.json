@@ -5,5 +5,40 @@
     "type": "website",
     "enabled": true,
     "config": {}
+  },
+  {
+    "id": "wechat",
+    "name": "微信公众号",
+    "type": "api",
+    "enabled": false,
+    "config": { "appid": "", "secret": "" }
+  },
+  {
+    "id": "zhihu",
+    "name": "知乎专栏",
+    "type": "api",
+    "enabled": false,
+    "config": { "token": "" }
+  },
+  {
+    "id": "xueqiu",
+    "name": "雪球",
+    "type": "api",
+    "enabled": false,
+    "config": { "token": "" }
+  },
+  {
+    "id": "toutiao",
+    "name": "今日头条",
+    "type": "api",
+    "enabled": false,
+    "config": { "token": "" }
+  },
+  {
+    "id": "xiaohongshu",
+    "name": "小红书",
+    "type": "manual",
+    "enabled": false,
+    "config": {}
   }
 ]
