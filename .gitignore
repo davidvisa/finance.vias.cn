@@ -45,3 +45,5 @@ next-env.d.ts
 
 # config logs
 config/logs.json
+
+.vercel

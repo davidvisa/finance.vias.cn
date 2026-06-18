@@ -42,6 +42,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   const nav = [
     { href: "/admin", label: "概览", icon: "📊" },
+    { href: "/admin/articles-list", label: "文章列表", icon: "📄" },
     { href: "/admin/articles", label: "文章审核", icon: "📝" },
     { href: "/admin/sources", label: "数据源管理", icon: "📡" },
     { href: "/admin/channels", label: "发布渠道", icon: "📤" },
