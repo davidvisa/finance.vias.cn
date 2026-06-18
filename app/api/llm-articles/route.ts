@@ -2,7 +2,7 @@ import { NextResponse } from "next/server"
 import { getPublishedArticles } from "@/lib/content"
 
 export async function GET() {
-  const articles = getPublishedArticles()
+  const articles = await getPublishedArticles()
   const data = articles.map((a) => ({
     title: a.title,
     date: a.date,

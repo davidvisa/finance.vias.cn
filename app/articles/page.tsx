@@ -7,8 +7,8 @@ export const metadata: Metadata = {
   description: "每日更新全球财经资讯，涵盖美股港股行情、宏观经济数据、国际财经新闻、金融政策法规、香港保险资讯。",
 }
 
-export default function ArticlesPage() {
-  const articles = getPublishedArticles()
+export default async function ArticlesPage() {
+  const articles = await getPublishedArticles()
 
   return (
     <div className="mx-auto max-w-4xl space-y-8 py-8">
